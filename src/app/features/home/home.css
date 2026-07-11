@@ -1,0 +1,75 @@
+.home-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f3f4f6;
+}
+
+
+.hero-card {
+
+  background: white;
+  padding: 50px;
+  width: 500px;
+  text-align: center;
+
+  border-radius: 15px;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+
+.hero-card h1 {
+
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+
+.hero-card p {
+
+  font-size: 18px;
+  margin-bottom: 35px;
+}
+
+
+.home-buttons {
+
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+
+.btn {
+
+  padding: 12px 25px;
+
+  text-decoration: none;
+
+  border-radius: 8px;
+
+  font-size: 16px;
+
+}
+
+
+.btn-home {
+
+  background: #2563eb;
+  color: white;
+}
+
+
+.btn-admin {
+
+  background: #16a34a;
+  color: white;
+}
+
+
+.btn:hover {
+
+  opacity: 0.85;
+}

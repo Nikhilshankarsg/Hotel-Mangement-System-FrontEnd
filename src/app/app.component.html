@@ -1,16 +1,40 @@
-<nav class="navbar" *ngIf="auth.isLoggedIn()">
+<nav class="navbar" *ngIf="isAdminPage">
+
   <div class="nav-left">
     <span class="logo">🏨 Hotel Admin</span>
-    <a routerLink="/dashboard">Dashboard</a>
-    <a routerLink="/rooms">Rooms</a>
-    <a routerLink="/checkinout">Check-In / Check-Out</a>
+
+    <a routerLink="/dashboard">
+      Dashboard
+    </a>
+
+    <a routerLink="/rooms">
+      Rooms
+    </a>
+
+    <a routerLink="/checkinout">
+      Check-In / Check-Out
+    </a>
   </div>
+
   <div class="nav-right">
-    <span>{{ auth.getFullName() }}</span>
-    <button class="btn btn-secondary" (click)="logout()">Logout</button>
+
+    <span>
+      {{ auth.getFullName() }}
+    </span>
+
+    <button
+      class="btn btn-secondary"
+      (click)="logout()">
+      Logout
+    </button>
+
   </div>
+
 </nav>
 
+
+<!-- Routed pages will load here -->
 <router-outlet></router-outlet>
 
-<app-chatbot *ngIf="auth.isLoggedIn()"></app-chatbot>
+
+<app-chatbot *ngIf="isAdminPage"></app-chatbot>

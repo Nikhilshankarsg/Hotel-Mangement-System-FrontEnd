@@ -1,0 +1,15 @@
+.main-nav {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 18px;
+}
+
+.main-nav a:hover {
+  color: #0056b3;
+}
