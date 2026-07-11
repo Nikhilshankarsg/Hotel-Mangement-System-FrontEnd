@@ -1,0 +1,26 @@
+<div class="chatbot-widget">
+  <button class="chat-toggle" (click)="toggle()">
+    {{ open ? '✕' : '💬' }}
+  </button>
+
+  <div class="chat-panel card" *ngIf="open">
+    <div class="chat-header">Hotel Assistant</div>
+
+    <div class="chat-messages">
+      <div *ngFor="let msg of messages" class="chat-bubble" [ngClass]="msg.sender">
+        {{ msg.text }}
+      </div>
+      <div class="chat-bubble bot" *ngIf="loading">Typing...</div>
+    </div>
+
+    <div class="chat-input-row">
+      <input
+        type="text"
+        placeholder="Ask a question..."
+        [(ngModel)]="input"
+        (keyup.enter)="send()"
+      />
+      <button class="btn btn-primary" (click)="send()">Send</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>Admin Dashboard</h1>
+  <p class="subtitle">Live overview of room availability and occupancy</p>
+
+  <p>Loading: {{ loading }}</p>
+  <p>Stats Exists: {{ stats !== null }}</p>
+  <pre>{{ stats | json }}</pre>
+
+  <div class="error" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    Loading dashboard...
+  </div>
+
+  <div class="stats-grid" *ngIf="!loading && stats">
+    <div class="card stat-card total">
+      <div class="stat-label">Total Rooms</div>
+      <div class="stat-value">{{ stats.totalRooms }}</div>
+    </div>
+
+    <div class="card stat-card available">
+      <div class="stat-label">Available Rooms</div>
+      <div class="stat-value">{{ stats.availableRooms }}</div>
+    </div>
+
+    <div class="card stat-card occupied">
+      <div class="stat-label">Occupied Rooms</div>
+      <div class="stat-value">{{ stats.occupiedRooms }}</div>
+    </div>
+
+    <div class="card stat-card maintenance">
+      <div class="stat-label">Under Maintenance</div>
+      <div class="stat-value">{{ stats.maintenanceRooms }}</div>
+    </div>
+
+    <div class="card stat-card guests">
+      <div class="stat-label">Guests Currently Checked-In</div>
+      <div class="stat-value">{{ stats.totalGuestsCheckedIn }}</div>
+    </div>
+
+    <div class="card stat-card rate">
+      <div class="stat-label">Occupancy Rate</div>
+      <div class="stat-value">
+        {{ stats.occupancyRatePercent }}%
+      </div>
+    </div>
+  </div>
+</div>
+```

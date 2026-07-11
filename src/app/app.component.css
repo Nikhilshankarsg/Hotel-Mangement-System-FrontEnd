@@ -1,0 +1,13 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111827;
+  color: #fff;
+  padding: 14px 24px;
+}
+.nav-left { display: flex; align-items: center; gap: 24px; }
+.nav-left a { color: #d1d5db; font-weight: 500; }
+.nav-left a:hover { color: #fff; }
+.logo { font-weight: 700; font-size: 18px; }
+.nav-right { display: flex; align-items: center; gap: 14px; }

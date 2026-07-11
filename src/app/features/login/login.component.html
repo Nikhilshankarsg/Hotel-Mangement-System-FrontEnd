@@ -1,0 +1,20 @@
+<div class="login-wrapper">
+  <form class="card login-card" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <h2>🏨 Hotel Admin Login</h2>
+    <p class="subtitle">Only administrators can access this dashboard</p>
+
+    <label>Username</label>
+    <input type="text" name="username" [(ngModel)]="username" required autocomplete="username" />
+
+    <label>Password</label>
+    <input type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
+
+    <div class="error" *ngIf="error">{{ error }}</div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid || loading">
+      {{ loading ? 'Signing in...' : 'Sign In' }}
+    </button>
+
+    <p class="hint">Default admin credentials: <b>admin</b> / <b>Admin@123</b></p>
+  </form>
+</div>
