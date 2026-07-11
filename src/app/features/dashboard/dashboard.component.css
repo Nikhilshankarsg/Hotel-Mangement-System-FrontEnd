@@ -1,22 +1,557 @@
-h1 { margin-bottom: 4px; }
-.subtitle { color: #6b7280; margin-top: 0; margin-bottom: 24px; }
+.dashboard-container {
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  width:50%;
+
+  padding:24px;
+
+  background:#f8fafc;
+
 }
 
-.stat-card { text-align: center; }
-.stat-label { color: #6b7280; font-size: 14px; margin-bottom: 8px; }
-.stat-value { font-size: 32px; font-weight: 700; }
 
-.total .stat-value { color: #1f2937; }
-.available .stat-value { color: #16a34a; }
-.occupied .stat-value { color: #dc2626; }
-.maintenance .stat-value { color: #ca8a04; }
-.guests .stat-value { color: #2563eb; }
-.rate .stat-value { color: #7c3aed; }
 
-.loading { color: #6b7280; }
-.error { color: #dc2626; margin-bottom: 16px; }
+/* Header */
+
+.dashboard-header {
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:20px;
+
+}
+
+
+
+.dashboard-header h1 {
+
+  margin:0;
+
+  font-size:24px;
+
+  font-weight:800;
+
+  color:#111827;
+
+}
+
+
+
+.subtitle {
+
+  margin-top:5px;
+
+  color:#64748b;
+
+  font-size:13px;
+
+}
+
+
+
+
+
+/* Status */
+
+.status-box {
+
+  background:white;
+
+  padding:10px 16px;
+
+  border-radius:14px;
+
+  border:1px solid #e5e7eb;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+}
+
+
+
+.status-box span {
+
+  font-size:11px;
+
+  color:#64748b;
+
+}
+
+
+.status-box strong {
+
+  color:#16a34a;
+
+  font-size:14px;
+
+}
+
+
+
+
+
+/* Grid */
+
+.stats-grid {
+
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:16px;
+
+}
+
+
+
+
+
+/* Cards */
+
+.stat-card {
+
+  background:white;
+
+  border-radius:18px;
+
+  padding:18px;
+
+
+  display:flex;
+
+  align-items:center;
+
+  gap:15px;
+
+
+  border:1px solid #e5e7eb;
+
+
+  position:relative;
+
+  overflow:hidden;
+
+
+  box-shadow:
+
+  0 6px 18px rgba(15,23,42,.06);
+
+
+  transition:.25s;
+
+}
+
+
+
+.stat-card:hover {
+
+  transform:translateY(-4px);
+
+}
+
+
+
+
+
+.stat-card::before {
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+
+  top:0;
+
+  width:5px;
+
+  height:100%;
+
+}
+
+
+
+
+
+/* Icon */
+
+.icon {
+
+  width:52px;
+
+  height:52px;
+
+  border-radius:14px;
+
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+
+  font-size:24px;
+
+}
+
+
+
+
+
+/* Content */
+
+.content span {
+
+  display:block;
+
+  color:#64748b;
+
+  font-size:12px;
+
+  font-weight:600;
+
+}
+
+
+
+.content h2 {
+
+  margin:5px 0;
+
+  font-size:28px;
+
+  font-weight:800;
+
+}
+
+
+
+.content small {
+
+  color:#94a3b8;
+
+  font-size:11px;
+
+}
+
+
+
+
+
+/* Colors */
+
+
+.total {
+
+ background:linear-gradient(135deg,#eef2ff,#fff);
+
+}
+
+
+.total::before {
+
+ background:#6366f1;
+
+}
+
+
+.total .icon {
+
+ background:#e0e7ff;
+
+}
+
+
+.total h2 {
+
+ color:#4338ca;
+
+}
+
+
+
+
+
+.available {
+
+ background:linear-gradient(135deg,#ecfdf5,#fff);
+
+}
+
+
+.available::before {
+
+ background:#22c55e;
+
+}
+
+
+.available .icon {
+
+ background:#dcfce7;
+
+}
+
+
+.available h2 {
+
+ color:#16a34a;
+
+}
+
+
+
+
+
+.occupied {
+
+ background:linear-gradient(135deg,#fef2f2,#fff);
+
+}
+
+
+.occupied::before {
+
+ background:#ef4444;
+
+}
+
+
+.occupied .icon {
+
+ background:#fee2e2;
+
+}
+
+
+.occupied h2 {
+
+ color:#dc2626;
+
+}
+
+
+
+
+
+.maintenance {
+
+ background:linear-gradient(135deg,#fffbeb,#fff);
+
+}
+
+
+.maintenance::before {
+
+ background:#f59e0b;
+
+}
+
+
+.maintenance .icon {
+
+ background:#fef3c7;
+
+}
+
+
+.maintenance h2 {
+
+ color:#d97706;
+
+}
+
+
+
+
+
+.guests {
+
+ background:linear-gradient(135deg,#eff6ff,#fff);
+
+}
+
+
+.guests::before {
+
+ background:#3b82f6;
+
+}
+
+
+.guests .icon {
+
+ background:#dbeafe;
+
+}
+
+
+.guests h2 {
+
+ color:#2563eb;
+
+}
+
+
+
+
+
+.rate {
+
+ background:linear-gradient(135deg,#faf5ff,#fff);
+
+}
+
+
+.rate::before {
+
+ background:#8b5cf6;
+
+}
+
+
+.rate .icon {
+
+ background:#ede9fe;
+
+}
+
+
+.rate h2 {
+
+ color:#7c3aed;
+
+}
+
+
+
+
+
+/* Progress */
+
+.progress {
+
+ width:120px;
+
+ height:6px;
+
+ background:#e5e7eb;
+
+ border-radius:20px;
+
+ overflow:hidden;
+
+ margin:8px 0;
+
+}
+
+
+
+.progress-fill {
+
+ height:100%;
+
+ background:
+
+ linear-gradient(
+
+ 90deg,
+
+ #8b5cf6,
+
+ #6366f1
+
+ );
+
+
+ border-radius:20px;
+
+}
+
+
+
+
+
+.error {
+
+ background:#fee2e2;
+
+ color:#991b1b;
+
+ padding:10px;
+
+ border-radius:10px;
+
+ margin-bottom:15px;
+
+}
+
+
+
+
+
+.loading {
+
+ color:#64748b;
+
+}
+
+
+
+
+
+/* Responsive */
+
+@media(max-width:1000px){
+
+  .dashboard-container {
+
+    width:70%;
+
+  }
+
+}
+
+
+
+@media(max-width:768px){
+
+
+.dashboard-container {
+
+  width:100%;
+
+  padding:20px;
+
+}
+
+
+
+.dashboard-header {
+
+  flex-direction:column;
+
+  align-items:flex-start;
+
+  gap:12px;
+
+}
+
+
+
+.stats-grid {
+
+  grid-template-columns:1fr;
+
+}
+
+
+}

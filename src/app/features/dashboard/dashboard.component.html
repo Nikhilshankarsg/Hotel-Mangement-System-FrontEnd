@@ -1,51 +1,232 @@
-<div class="container">
-  <h1>Admin Dashboard</h1>
-  <p class="subtitle">Live overview of room availability and occupancy</p>
+<div class="dashboard-container">
 
-  <!-- <p>Loading: {{ loading }}</p>
-  <p>Stats Exists: {{ stats !== null }}</p>
-  <pre>{{ stats | json }}</pre> -->
+  <!-- Header -->
+  <div class="dashboard-header">
+
+    <div>
+      <h1>Operations Center</h1>
+
+      <p class="subtitle">
+        Real-time view of property performance, rooms, and guest activity
+      </p>
+    </div>
+
+
+    <div class="status-box">
+      <span>Status</span>
+      <strong>Live</strong>
+    </div>
+
+  </div>
+
+
 
   <div class="error" *ngIf="error">
     {{ error }}
   </div>
 
+
+
   <div class="loading" *ngIf="loading">
     Loading dashboard...
   </div>
 
+
+
+
   <div class="stats-grid" *ngIf="!loading && stats">
-    <div class="card stat-card total">
-      <div class="stat-label">Total Rooms</div>
-      <div class="stat-value">{{ stats.totalRooms }}</div>
-    </div>
 
-    <div class="card stat-card available">
-      <div class="stat-label">Available Rooms</div>
-      <div class="stat-value">{{ stats.availableRooms }}</div>
-    </div>
 
-    <div class="card stat-card occupied">
-      <div class="stat-label">Occupied Rooms</div>
-      <div class="stat-value">{{ stats.occupiedRooms }}</div>
-    </div>
+    <!-- Property Inventory -->
 
-    <div class="card stat-card maintenance">
-      <div class="stat-label">Under Maintenance</div>
-      <div class="stat-value">{{ stats.maintenanceRooms }}</div>
-    </div>
+    <div class="stat-card total">
 
-    <div class="card stat-card guests">
-      <div class="stat-label">Guests Currently Checked-In</div>
-      <div class="stat-value">{{ stats.totalGuestsCheckedIn }}</div>
-    </div>
-
-    <div class="card stat-card rate">
-      <div class="stat-label">Occupancy Rate</div>
-      <div class="stat-value">
-        {{ stats.occupancyRatePercent }}%
+      <div class="icon">
+        🏨
       </div>
-    </div>
-  </div>
-</div>
 
+
+      <div class="content">
+
+        <span>Property Inventory</span>
+
+        <h2>
+          {{ stats.totalRooms }}
+        </h2>
+
+        <small>
+          Total Rooms
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- Ready For Booking -->
+
+    <div class="stat-card available">
+
+      <div class="icon">
+        ✓
+      </div>
+
+
+      <div class="content">
+
+        <span>Ready for Booking</span>
+
+        <h2>
+          {{ stats.availableRooms }}
+        </h2>
+
+        <small>
+          Available Rooms
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- Currently In House -->
+
+    <div class="stat-card occupied">
+
+      <div class="icon">
+        🔑
+      </div>
+
+
+      <div class="content">
+
+        <span>Currently In-House</span>
+
+        <h2>
+          {{ stats.occupiedRooms }}
+        </h2>
+
+        <small>
+          Occupied Rooms
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- Out Of Service -->
+
+    <div class="stat-card maintenance">
+
+      <div class="icon">
+        🛠
+      </div>
+
+
+      <div class="content">
+
+        <span>Out of Service</span>
+
+        <h2>
+          {{ stats.maintenanceRooms }}
+        </h2>
+
+        <small>
+          Maintenance Rooms
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+    <!-- Active Guests -->
+
+    <div class="stat-card guests">
+
+      <div class="icon">
+        👤
+      </div>
+
+
+      <div class="content">
+
+        <span>Active Guests</span>
+
+        <h2>
+          {{ stats.totalGuestsCheckedIn }}
+        </h2>
+
+        <small>
+          Checked-In Guests
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Occupancy -->
+
+    <div class="stat-card rate">
+
+
+      <div class="icon">
+        📈
+      </div>
+
+
+      <div class="content">
+
+        <span>Occupancy Performance</span>
+
+        <h2>
+          {{ stats.occupancyRatePercent }}%
+        </h2>
+
+
+        <div class="progress">
+
+          <div
+            class="progress-fill"
+            [style.width.%]="stats.occupancyRatePercent">
+          </div>
+
+        </div>
+
+
+        <small>
+          Today's occupancy
+        </small>
+
+
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+
+
+</div>
