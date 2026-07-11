@@ -5,46 +5,80 @@
   <div class="success" *ngIf="success">{{ success }}</div>
 
   <div class="grid">
+
     <!-- Check-In Form -->
     <div class="card">
       <h3>Guest Check-In</h3>
 
       <label>Available Room</label>
-      <select [(ngModel)]="checkInForm.roomId" name="roomId">
-        <option [ngValue]="0">-- Select a room --</option>
-        <option *ngFor="let room of availableRooms" [ngValue]="room.id">
-          {{ room.roomNumber }} ({{ room.roomType }}) - ₹{{ room.pricePerNight }}/night
+      <select
+        [(ngModel)]="checkInForm.roomId"
+        (ngModelChange)="checkInForm.roomId = +$event"
+        name="roomId">
+
+        <option value="0">-- Select a room --</option>
+
+        <option
+          *ngFor="let room of availableRooms"
+          [value]="room.id">
+          {{ room.roomNumber }}
+          ({{ room.roomType }})
+          - ₹{{ room.pricePerNight }}/night
         </option>
       </select>
 
       <label>Guest Full Name</label>
-      <input type="text" [(ngModel)]="checkInForm.guestFullName" name="guestFullName" />
+      <input
+        type="text"
+        [(ngModel)]="checkInForm.guestFullName"
+        name="guestFullName" />
 
       <label>Phone Number</label>
-      <input type="text" [(ngModel)]="checkInForm.guestPhone" name="guestPhone" />
+      <input
+        type="text"
+        [(ngModel)]="checkInForm.guestPhone"
+        name="guestPhone" />
 
       <label>Email (optional)</label>
-      <input type="email" [(ngModel)]="checkInForm.guestEmail" name="guestEmail" />
+      <input
+        type="email"
+        [(ngModel)]="checkInForm.guestEmail"
+        name="guestEmail" />
 
       <label>ID Proof Type</label>
-      <select [(ngModel)]="checkInForm.idProofType" name="idProofType">
+      <select
+        [(ngModel)]="checkInForm.idProofType"
+        name="idProofType">
         <option value="PASSPORT">Passport</option>
         <option value="AADHAAR">Aadhaar</option>
         <option value="DRIVING_LICENSE">Driving License</option>
       </select>
 
       <label>ID Proof Number</label>
-      <input type="text" [(ngModel)]="checkInForm.idProofNumber" name="idProofNumber" />
+      <input
+        type="text"
+        [(ngModel)]="checkInForm.idProofNumber"
+        name="idProofNumber" />
 
       <label>Number of Guests</label>
-      <input type="number" min="1" [(ngModel)]="checkInForm.numberOfGuests" name="numberOfGuests" />
+      <input
+        type="number"
+        min="1"
+        [(ngModel)]="checkInForm.numberOfGuests"
+        name="numberOfGuests" />
 
-      <button class="btn btn-primary full-width" (click)="submitCheckIn()">Check In</button>
+      <button
+        type="button"
+        class="btn btn-primary full-width"
+        (click)="submitCheckIn()">
+        Check In
+      </button>
     </div>
 
-    <!-- Active Bookings / Check-Out -->
+    <!-- Active Bookings -->
     <div class="card">
       <h3>Currently Checked-In Guests</h3>
+
       <table>
         <thead>
           <tr>
@@ -55,6 +89,7 @@
             <th>Action</th>
           </tr>
         </thead>
+
         <tbody>
           <tr *ngFor="let booking of activeBookings">
             <td>{{ booking.roomNumber }}</td>
@@ -62,14 +97,23 @@
             <td>{{ booking.guestPhone }}</td>
             <td>{{ booking.checkInTime | date:'short' }}</td>
             <td>
-              <button class="btn btn-danger" (click)="submitCheckOut(booking)">Check Out</button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="submitCheckOut(booking)">
+                Check Out
+              </button>
             </td>
           </tr>
+
           <tr *ngIf="activeBookings.length === 0">
-            <td colspan="5">No guests currently checked in.</td>
+            <td colspan="5">
+              No guests currently checked in.
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+
   </div>
 </div>
