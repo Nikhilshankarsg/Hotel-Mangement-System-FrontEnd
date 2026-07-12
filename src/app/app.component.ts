@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {
   RouterOutlet,
   RouterLink,
+  RouterLinkActive,
   Router,
   NavigationEnd
 } from '@angular/router';
@@ -17,6 +18,7 @@ import { ChatbotComponent } from './shared/chatbot/chatbot.component';
   imports: [
     RouterOutlet,
     RouterLink,
+    RouterLinkActive, /* Added to power the active state styling */
     CommonModule,
     ChatbotComponent
   ],
@@ -41,6 +43,16 @@ export class AppComponent {
           url.startsWith('/rooms') ||
           url.startsWith('/checkinout');
       });
+  }
+
+  // Generates 2-letter initials for the avatar (e.g., "John Doe" -> "JD")
+  get userInitials(): string {
+    const fullName = this.auth.getFullName() || 'Admin User';
+    const names = fullName.trim().split(' ');
+    if (names.length >= 2) {
+      return (names[0][0] + names[1][0]).toUpperCase();
+    }
+    return fullName.substring(0, 2).toUpperCase();
   }
 
   logout() {
