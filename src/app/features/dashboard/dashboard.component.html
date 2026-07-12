@@ -1,232 +1,109 @@
-<div class="dashboard-container">
+<div class="layout-wrapper">
+  
+  <!-- Left Side: Dashboard Stats (50%) -->
+  <div class="dashboard-container">
 
-  <!-- Header -->
-  <div class="dashboard-header">
+    <!-- Header -->
+    <div class="dashboard-header">
+      <div>
+        <h1>Hotel Operations Dashboard</h1>
+        <p class="subtitle">
+          Real-time insights into room availability, guest activity, occupancy trends, and hotel performance metrics.
+        </p>
+      </div>
 
-    <div>
-  <h1>Hotel Operations Dashboard</h1>
-
-  <p class="subtitle">
-    Real-time insights into room availability, guest activity, occupancy trends, and hotel performance metrics.
-  </p>
-</div>
-
-
-    <div class="status-box">
-      <span>Status</span>
-      <strong>Live</strong>
+      <div class="status-box">
+        <span>Status</span>
+        <strong>Live</strong>
+      </div>
     </div>
 
-  </div>
-
-
-
-  <div class="error" *ngIf="error">
-    {{ error }}
-  </div>
-
-
-
-  <div class="loading" *ngIf="loading">
-    Loading dashboard...
-  </div>
-
-
-
-
-  <div class="stats-grid" *ngIf="!loading && stats">
-
-
-    <!-- Property Inventory -->
-
-    <div class="stat-card total">
-
-      <div class="icon">
-        🏨
-      </div>
-
-
-      <div class="content">
-
-        <span>Property Inventory</span>
-
-        <h2>
-          {{ stats.totalRooms }}
-        </h2>
-
-        <small>
-          Total Rooms
-        </small>
-
-      </div>
-
+    <div class="error" *ngIf="error">
+      {{ error }}
     </div>
 
-
-
-
-
-    <!-- Ready For Booking -->
-
-    <div class="stat-card available">
-
-      <div class="icon">
-        ✓
-      </div>
-
-
-      <div class="content">
-
-        <span>Ready for Booking</span>
-
-        <h2>
-          {{ stats.availableRooms }}
-        </h2>
-
-        <small>
-          Available Rooms
-        </small>
-
-      </div>
-
+    <div class="loading" *ngIf="loading && !stats">
+      Loading dashboard...
     </div>
 
+    <div class="stats-grid" *ngIf="stats">
 
-
-
-
-    <!-- Currently In House -->
-
-    <div class="stat-card occupied">
-
-      <div class="icon">
-        🔑
-      </div>
-
-
-      <div class="content">
-
-        <span>Currently In-House</span>
-
-        <h2>
-          {{ stats.occupiedRooms }}
-        </h2>
-
-        <small>
-          Occupied Rooms
-        </small>
-
-      </div>
-
-    </div>
-
-
-
-
-
-    <!-- Out Of Service -->
-
-    <div class="stat-card maintenance">
-
-      <div class="icon">
-        🛠
-      </div>
-
-
-      <div class="content">
-
-        <span>Out of Service</span>
-
-        <h2>
-          {{ stats.maintenanceRooms }}
-        </h2>
-
-        <small>
-          Maintenance Rooms
-        </small>
-
-      </div>
-
-    </div>
-
-
-
-
-
-
-    <!-- Active Guests -->
-
-    <div class="stat-card guests">
-
-      <div class="icon">
-        👤
-      </div>
-
-
-      <div class="content">
-
-        <span>Active Guests</span>
-
-        <h2>
-          {{ stats.totalGuestsCheckedIn }}
-        </h2>
-
-        <small>
-          Checked-In Guests
-        </small>
-
-      </div>
-
-    </div>
-
-
-
-
-
-
-
-    <!-- Occupancy -->
-
-    <div class="stat-card rate">
-
-
-      <div class="icon">
-        📈
-      </div>
-
-
-      <div class="content">
-
-        <span>Occupancy Performance</span>
-
-        <h2>
-          {{ stats.occupancyRatePercent }}%
-        </h2>
-
-
-        <div class="progress">
-
-          <div
-            class="progress-fill"
-            [style.width.%]="stats.occupancyRatePercent">
-          </div>
-
+      <!-- Property Inventory -->
+      <div class="stat-card total">
+        <div class="icon">🏨</div>
+        <div class="content">
+          <span>Property Inventory</span>
+          <h2>{{ stats.totalRooms }}</h2>
+          <small>Total Rooms</small>
         </div>
-
-
-        <small>
-          Today's occupancy
-        </small>
-
-
       </div>
 
+      <!-- Ready For Booking -->
+      <div class="stat-card available">
+        <div class="icon">✓</div>
+        <div class="content">
+          <span>Ready for Booking</span>
+          <h2>{{ stats.availableRooms }}</h2>
+          <small>Available Rooms</small>
+        </div>
+      </div>
+
+      <!-- Currently In House -->
+      <div class="stat-card occupied">
+        <div class="icon">🔑</div>
+        <div class="content">
+          <span>Currently In-House</span>
+          <h2>{{ stats.occupiedRooms }}</h2>
+          <small>Occupied Rooms</small>
+        </div>
+      </div>
+
+      <!-- Out Of Service -->
+      <div class="stat-card maintenance">
+        <div class="icon">🛠</div>
+        <div class="content">
+          <span>Out of Service</span>
+          <h2>{{ stats.maintenanceRooms }}</h2>
+          <small>Maintenance Rooms</small>
+        </div>
+      </div>
+
+      <!-- Active Guests -->
+      <div class="stat-card guests">
+        <div class="icon">👤</div>
+        <div class="content">
+          <span>Active Guests</span>
+          <h2>{{ stats.totalGuestsCheckedIn }}</h2>
+          <small>Checked-In Guests</small>
+        </div>
+      </div>
+
+      <!-- Occupancy -->
+      <div class="stat-card rate">
+        <div class="icon">📈</div>
+        <div class="content">
+          <span>Occupancy Performance</span>
+          <h2>{{ stats.occupancyRatePercent }}%</h2>
+          <div class="progress">
+            <div class="progress-fill" [style.width.%]="stats.occupancyRatePercent"></div>
+          </div>
+          <small>Today's occupancy</small>
+        </div>
+      </div>
 
     </div>
-
-
-
   </div>
 
+  <!-- Right Side: Real-Time Analytics Chart (50%) -->
+  <div class="chart-container" *ngIf="stats">
+    <div class="chart-header">
+      <h2>Room Allocation Analytics</h2>
+      <p class="subtitle">Live distribution of property inventory</p>
+    </div>
+    
+    <div class="canvas-wrapper">
+      <canvas id="roomStatsChart"></canvas>
+    </div>
+  </div>
 
 </div>
