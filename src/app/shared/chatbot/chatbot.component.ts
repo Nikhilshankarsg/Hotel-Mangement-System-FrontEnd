@@ -30,24 +30,34 @@ export class ChatbotComponent {
     this.open = !this.open;
   }
 
-  send() {
-    const text = this.input.trim();
-    if (!text) return;
+  // Keep your existing send() method
+send() {
+  const text = this.input.trim();
+  if (!text) return;
 
-    this.messages.push({ sender: 'user', text });
-    this.input = '';
-    this.loading = true;
+  // 1. Add user message and clear input
+  this.messages.push({ sender: 'user', text });
+  this.input = '';
+  this.loading = true; // Show "Typing..."
 
-    this.chatbotService.sendMessage(text).subscribe({
-      next: (res) => {
-        this.chatbotService.setSessionId(res.sessionId);
+  // 2. Call the service
+  this.chatbotService.sendMessage(text).subscribe({
+    next: (res) => {
+      // 3. Stop loading
+      this.loading = false;
+      
+      // 4. Push the reply from the backend
+      if (res && res.reply) {
         this.messages.push({ sender: 'bot', text: res.reply });
-        this.loading = false;
-      },
-      error: () => {
-        this.messages.push({ sender: 'bot', text: 'Sorry, I could not process that right now.' });
-        this.loading = false;
+      } else {
+        this.messages.push({ sender: 'bot', text: 'I received an empty response from the server.' });
       }
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Chatbot Error:', err);
+      this.loading = false; // Important: Stop loading even on error
+      this.messages.push({ sender: 'bot', text: 'Sorry, I am having trouble connecting to the hotel server.' });
+    }
+  });
+}
 }
