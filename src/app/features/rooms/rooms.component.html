@@ -1,201 +1,155 @@
-<p>showForm = {{ showForm }}</p>
-
-<div class="container">
-
-  <div class="header-row">
-    <h1>Room Management</h1>
-
+<div class="page-container">
+  <!-- Header -->
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Room Management</h1>
+      <p class="page-subtitle">Manage your property's room inventory and status.</p>
+    </div>
     <button class="btn btn-primary" (click)="openAddForm()">
-      + Add Room
+      <span class="icon">+</span> Add Room
     </button>
-  </div>
+  </header>
 
-
-  <div class="error" *ngIf="error">
+  <!-- Global Error -->
+  <div class="alert alert-danger" *ngIf="error">
     {{ error }}
   </div>
 
+  <!-- Data Table -->
+  <div class="table-card">
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Room No.</th>
+            <th>Type</th>
+            <th>Floor</th>
+            <th>Price/Night</th>
+            <th>Status</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let room of rooms">
+            <td class="font-medium">{{ room.roomNumber }}</td>
+            <td>
+              <span class="type-tag">{{ room.roomType }}</span>
+            </td>
+            <td>{{ room.floorNumber }}</td>
+            <td class="font-medium">₹{{ room.pricePerNight }}</td>
+            <td>
+              <span [ngClass]="badgeClass(room.status)">
+                <span class="status-dot"></span>
+                {{ room.status | titlecase }}
+              </span>
+            </td>
+            <td>
+              <div class="action-buttons">
+                <!-- Filled Edit Button -->
+                <button class="btn btn-icon btn-secondary action-btn-small" (click)="openEditForm(room)" title="Edit">
+                  ✎ Edit
+                </button>
+                
+                <!-- Show GREEN Available button when status IS AVAILABLE -->
+                <button 
+                  class="btn btn-icon btn-success action-btn-wide" 
+                  *ngIf="room.status === 'AVAILABLE'"
+                  (click)="toggleMaintenance(room)">
+                  ✓ Available
+                </button>
 
-  <div class="card">
-
-    <table>
-
-      <thead>
-        <tr>
-          <th>Room No.</th>
-          <th>Type</th>
-          <th>Floor</th>
-          <th>Price/Night</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-
-
-      <tbody>
-
-        <tr *ngFor="let room of rooms">
-
-          <td>{{ room.roomNumber }}</td>
-
-          <td>{{ room.roomType }}</td>
-
-          <td>{{ room.floorNumber }}</td>
-
-          <td>₹{{ room.pricePerNight }}</td>
-
-
-          <td>
-            <span [ngClass]="badgeClass(room.status)">
-              {{ room.status }}
-            </span>
-          </td>
-
-
-          <td class="actions">
-
-            <button
-              class="btn btn-secondary"
-              (click)="openEditForm(room)">
-              Edit
-            </button>
-
-
-            <button
-              class="btn btn-secondary"
-              *ngIf="room.status !== 'OCCUPIED'"
-              (click)="toggleMaintenance(room)">
-
-              {{ room.status === 'MAINTENANCE'
-                  ? 'Mark Available'
-                  : 'Mark Maintenance' }}
-
-            </button>
-
-
-            <button
-              class="btn btn-danger"
-              *ngIf="room.status !== 'OCCUPIED'"
-              (click)="deleteRoom(room)">
-              Delete
-            </button>
-
-          </td>
-
-        </tr>
-
-      </tbody>
-
-    </table>
-
+                <!-- Show ORANGE Maintenance button when status IS MAINTENANCE -->
+                <button 
+                  class="btn btn-icon btn-warning action-btn-wide" 
+                  *ngIf="room.status === 'MAINTENANCE'"
+                  (click)="toggleMaintenance(room)">
+                  🛠 Maintenance
+                </button>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- Empty State -->
+          <tr *ngIf="rooms.length === 0">
+            <td colspan="6" class="empty-state">
+              No rooms found. Click "Add Room" to get started.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-
-
-  <!-- ADD / EDIT MODAL -->
-
-  <div
-    class="modal-backdrop"
-    *ngIf="showForm"
-    (click)="closeForm()">
-
-
-    <div
-      class="card modal"
-      (click)="$event.stopPropagation()">
-
-
-      <h3>
-        {{ editingId ? 'Edit Room' : 'Add Room' }}
-      </h3>
-
-
-
-     <label>Room Number</label>
-
-<input
-  type="text"
-  [(ngModel)]="form.roomNumber"
-  name="roomNumber"
-  (input)="checkRoomNumber()">
-
-
-<div class="error" *ngIf="roomNumberError">
-  {{ roomNumberError }}
-</div>
-
-
-
-      <label>Room Type</label>
-
-      <select
-        [(ngModel)]="form.roomType"
-        name="roomType">
-
-        <option value="SINGLE">Single</option>
-        <option value="DOUBLE">Double</option>
-        <option value="DELUXE">Deluxe</option>
-        <option value="SUITE">Suite</option>
-
-      </select>
-
-
-
-
-      <label>Floor Number</label>
-
-      <input
-        type="number"
-        [(ngModel)]="form.floorNumber"
-        name="floorNumber">
-
-
-
-
-
-      <label>Price per Night (₹)</label>
-
-      <input
-        type="number"
-        [(ngModel)]="form.pricePerNight"
-        name="pricePerNight">
-
-
-
-
-
-      <div class="modal-actions">
-
-
-        <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="closeForm()">
-
-          Cancel
-
-        </button>
-
-
-
-       <button
-  type="button"
-  class="btn btn-primary"
-  [disabled]="!!roomNumberError"
-  (click)="saveRoom()">
-
-  Save
-
-</button>
-
-
+  <!-- Add/Edit Modal -->
+  <div class="modal-backdrop" *ngIf="showForm" (click)="closeForm()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>{{ editingId ? 'Edit Room' : 'Add New Room' }}</h3>
+        <button class="btn-close" (click)="closeForm()">✖</button>
       </div>
 
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Room Number</label>
+          <input 
+            type="text" 
+            class="form-control"
+            [class.is-invalid]="roomNumberError"
+            [(ngModel)]="form.roomNumber" 
+            name="roomNumber" 
+            placeholder="e.g. 101"
+            (input)="checkRoomNumber()">
+          <div class="error-text" *ngIf="roomNumberError">
+            {{ roomNumberError }}
+          </div>
+        </div>
 
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label>Room Type</label>
+            <select class="form-control" [(ngModel)]="form.roomType" name="roomType">
+              <option value="SINGLE">Single</option>
+              <option value="DOUBLE">Double</option>
+              <option value="DELUXE">Deluxe</option>
+              <option value="SUITE">Suite</option>
+            </select>
+          </div>
+
+          <div class="form-group half-width">
+            <label>Floor Number</label>
+            <input 
+              type="number" 
+              class="form-control"
+              [(ngModel)]="form.floorNumber" 
+              name="floorNumber"
+              min="1">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Price per Night (₹)</label>
+          <div class="input-with-prefix">
+            <span class="prefix">₹</span>
+            <input 
+              type="number" 
+              class="form-control pl-prefix"
+              [(ngModel)]="form.pricePerNight" 
+              name="pricePerNight"
+              min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeForm()">Cancel</button>
+        <button 
+          type="button" 
+          class="btn btn-primary" 
+          [disabled]="!!roomNumberError || !form.roomNumber"
+          (click)="saveRoom()">
+          Save Room
+        </button>
+      </div>
     </div>
-
-
   </div>
-
-
 </div>
