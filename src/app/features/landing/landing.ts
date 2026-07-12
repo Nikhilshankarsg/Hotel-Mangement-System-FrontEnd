@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+// 1. Import the Chatbot Component
+import { ChatbotComponent } from '../../shared/chatbot/chatbot.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  // 2. Add ChatbotComponent to the imports array
+  imports: [CommonModule, RouterLink, ChatbotComponent],
   templateUrl: './landing.html',
   styleUrl: './landing.css'
 })

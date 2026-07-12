@@ -2,53 +2,37 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-
-  // Main Landing Page (localhost:4200)
+  // Main Landing Page
   {
     path: '',
-    loadComponent: () =>
-      import('./features/landing/landing')
-        .then(m => m.Landing)
+    loadComponent: () => import('./features/landing/landing').then(m => m.Landing)
   },
-  // Admin Login (localhost:4200/login)
+  // Public Chatbot Route
+//   {
+//   path: 'chatbot',
+//   // Change the path here to match the actual folder structure
+//   loadComponent: () => import('./shared/chatbot/chatbot.component').then(m => m.ChatbotComponent)
+// },
+  // Login
   {
     path: 'login',
-    loadComponent: () =>
-      import('./features/login/login.component')
-        .then(m => m.LoginComponent)
+    loadComponent: () => import('./features/login/login.component').then(m => m.LoginComponent)
   },
-
-  // Admin Dashboard
+  // Protected Admin Routes
   {
     path: 'dashboard',
-    loadComponent: () =>
-      import('./features/dashboard/dashboard.component')
-        .then(m => m.DashboardComponent),
+    loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [authGuard]
   },
-
-  // Rooms
   {
     path: 'rooms',
-    loadComponent: () =>
-      import('./features/rooms/rooms.component')
-        .then(m => m.RoomsComponent),
+    loadComponent: () => import('./features/rooms/rooms.component').then(m => m.RoomsComponent),
     canActivate: [authGuard]
   },
-
-  // Check-In / Check-Out
   {
     path: 'checkinout',
-    loadComponent: () =>
-      import('./features/checkinout/checkinout.component')
-        .then(m => m.CheckinoutComponent),
+    loadComponent: () => import('./features/checkinout/checkinout.component').then(m => m.CheckinoutComponent),
     canActivate: [authGuard]
   },
-
-  // Unknown URL
-  {
-    path: '**',
-    redirectTo: ''
-  }
-
+  { path: '**', redirectTo: '' }
 ];
