@@ -1,15 +1,16 @@
-.main-nav {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
+.hotel-img {
+  height: 280px;
+  width: 100%;
+  object-fit: cover;
 }
 
-.main-nav a {
-  text-decoration: none;
-  color: #007bff;
-  font-size: 18px;
+.feature-card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: 0.3s;
 }
 
-.main-nav a:hover {
-  color: #0056b3;
+.feature-card:hover {
+  transform: translateY(-8px);
 }

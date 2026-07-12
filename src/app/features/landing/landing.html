@@ -1,15 +1,157 @@
-<div class="home-buttons">
+<div class="container py-4">
 
-  <a routerLink="/home" class="btn btn-home">
-    Home
-  </a>
+  <!-- Navigation Buttons -->
+  <div class="text-center mb-5">
 
-  <a routerLink="/about" class="btn btn-home">
-    About
-  </a>
+    <button
+      class="btn me-3"
+      [ngClass]="activeTab === 'home'
+        ? 'btn-primary'
+        : 'btn-outline-primary'"
+      (click)="showHome()">
+      Home
+    </button>
 
-  <a routerLink="/login" class="btn btn-admin">
-    Admin Login
-  </a>
+    <button
+      class="btn me-3"
+      [ngClass]="activeTab === 'about'
+        ? 'btn-primary'
+        : 'btn-outline-primary'"
+      (click)="showAbout()">
+      About
+    </button>
+
+    <a
+      routerLink="/login"
+      class="btn btn-success">
+      Admin Login
+    </a>
+
+  </div>
+
+  <!-- HOME -->
+  <div *ngIf="activeTab === 'home'">
+
+    <div class="text-center mb-5">
+      <h1 class="fw-bold text-primary">
+        🏨 Grand Palace Hotel
+      </h1>
+
+      <p class="lead text-muted">
+        Experience luxury, comfort and exceptional hospitality.
+      </p>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-md-4">
+        <img
+          src="https://images.unsplash.com/photo-1564501049412-61c2a3083791"
+          class="img-fluid rounded shadow hotel-img">
+      </div>
+
+      <div class="col-md-4">
+        <img
+          src="https://images.unsplash.com/photo-1582719508461-905c673771fd"
+          class="img-fluid rounded shadow hotel-img">
+      </div>
+
+      <div class="col-md-4">
+        <img
+          src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+          class="img-fluid rounded shadow hotel-img">
+      </div>
+
+    </div>
+
+    <div class="row mt-5">
+
+      <div class="col-md-3 mb-4">
+        <div class="card feature-card text-center p-4">
+          <h1>🏊</h1>
+          <h5>Swimming Pool</h5>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <div class="card feature-card text-center p-4">
+          <h1>🍽️</h1>
+          <h5>Restaurant</h5>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <div class="card feature-card text-center p-4">
+          <h1>🏋️</h1>
+          <h5>Fitness Center</h5>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <div class="card feature-card text-center p-4">
+          <h1>📶</h1>
+          <h5>Free Wi-Fi</h5>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ABOUT -->
+  <div *ngIf="activeTab === 'about'">
+
+    <div class="text-center mb-5">
+      <h1 class="fw-bold text-primary">
+        About Grand Palace Hotel
+      </h1>
+
+      <p class="lead text-muted">
+        Delivering memorable experiences through luxury and hospitality.
+      </p>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 mb-4">
+        <div class="card feature-card p-4 h-100">
+
+          <h3>🎯 Vision</h3>
+
+          <p class="text-muted">
+            To become the preferred destination for travelers by providing
+            exceptional hospitality and unforgettable experiences.
+          </p>
+
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card feature-card p-4 h-100">
+
+          <h3>🚀 Mission</h3>
+
+          <p class="text-muted">
+            To provide world-class accommodation and personalized services.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card feature-card p-5 mt-4">
+
+      <h3 class="text-primary">
+        Contact Information
+      </h3>
+
+      <p>📍 MG Road, Bengaluru, Karnataka</p>
+      <p>📞 +91 98765 43210</p>
+      <p>📧 info@grandpalacehotel.com</p>
+
+    </div>
+
+  </div>
 
 </div>
