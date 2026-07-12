@@ -1,20 +1,85 @@
-<div class="login-wrapper">
-  <form class="card login-card" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-    <h2>🏨 Hotel Admin Login</h2>
-    <p class="subtitle">Only administrators can access this dashboard</p>
+<div class="gp-login-wrapper">
+  <div class="gp-login-card">
+    
+    <!-- Header -->
+    <div class="text-center mb-4">
+      <span class="gp-eyebrow">Grand Palace Hotel</span>
+      <h2 class="gp-title">Admin Portal</h2>
+      <div class="gp-rule"><span></span></div>
+      <p class="gp-subtitle">Authorized personnel only</p>
+    </div>
 
-    <label>Username</label>
-    <input type="text" name="username" [(ngModel)]="username" required autocomplete="username" />
+    <!-- Login Form -->
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+      
+      <!-- Username Field -->
+      <div class="gp-input-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          [(ngModel)]="username" 
+          #usernameCtrl="ngModel"
+          required 
+          minlength="3"
+          autocomplete="username"
+          class="gp-input"
+          [ngClass]="{'is-invalid': usernameCtrl.invalid && (usernameCtrl.dirty || usernameCtrl.touched)}"
+          placeholder="Enter admin username" />
+        
+        <!-- Validation Messages -->
+        <div class="gp-error-text" *ngIf="usernameCtrl.invalid && (usernameCtrl.dirty || usernameCtrl.touched)">
+          <span *ngIf="usernameCtrl.errors?.['required']">Username is required.</span>
+          <span *ngIf="usernameCtrl.errors?.['minlength']">Must be at least 3 characters.</span>
+        </div>
+      </div>
 
-    <label>Password</label>
-    <input type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
+      <!-- Password Field -->
+      <div class="gp-input-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          [(ngModel)]="password" 
+          #passwordCtrl="ngModel"
+          required 
+          minlength="6"
+          autocomplete="current-password"
+          class="gp-input"
+          [ngClass]="{'is-invalid': passwordCtrl.invalid && (passwordCtrl.dirty || passwordCtrl.touched)}"
+          placeholder="Enter your password" />
+          
+        <!-- Validation Messages -->
+        <div class="gp-error-text" *ngIf="passwordCtrl.invalid && (passwordCtrl.dirty || passwordCtrl.touched)">
+          <span *ngIf="passwordCtrl.errors?.['required']">Password is required.</span>
+          <span *ngIf="passwordCtrl.errors?.['minlength']">Must be at least 6 characters.</span>
+        </div>
+      </div>
 
-    <div class="error" *ngIf="error">{{ error }}</div>
+      <!-- API / Auth Error -->
+      <div class="gp-alert-error" *ngIf="error">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="error-icon">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        {{ error }}
+      </div>
 
-    <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid || loading">
-      {{ loading ? 'Signing in...' : 'Sign In' }}
-    </button>
+      <!-- Submit Button -->
+      <button class="btn gp-btn-gold w-100" type="submit" [disabled]="loginForm.invalid || loading">
+        {{ loading ? 'Authenticating...' : 'Secure Sign In' }}
+      </button>
 
-    <p class="hint">Default admin credentials: <b>admin</b> / <b>Admin@123</b></p>
-  </form>
+    </form>
+
+    <!-- Footer / Hints -->
+    <div class="gp-login-footer">
+      <p class="gp-hint">Default credentials: <b>admin</b> / <b>Admin@123</b></p>
+     <a href="http://localhost:4200/" class="gp-link">
+  ← Return to Public Site
+</a>
+
+  </div>
 </div>

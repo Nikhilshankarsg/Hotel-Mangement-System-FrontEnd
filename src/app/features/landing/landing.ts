@@ -10,14 +10,13 @@ import { RouterLink } from '@angular/router';
   styleUrl: './landing.css'
 })
 export class Landing {
-
   activeTab: 'home' | 'about' = 'home';
 
-  showHome() {
+  showHome(): void {
     this.activeTab = 'home';
   }
 
-  showAbout() {
+  showAbout(): void {
     this.activeTab = 'about';
   }
 }

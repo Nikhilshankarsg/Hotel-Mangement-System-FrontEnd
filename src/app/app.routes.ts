@@ -10,23 +10,6 @@ export const routes: Routes = [
       import('./features/landing/landing')
         .then(m => m.Landing)
   },
-
-  // Home Page (localhost:4200/home)
-  {
-    path: 'home',
-    loadComponent: () =>
-      import('./features/home/home')
-        .then(m => m.Home)
-  },
-
-  // About Page (localhost:4200/about)
-  {
-    path: 'about',
-    loadComponent: () =>
-      import('./features/about/about')
-        .then(m => m.About)
-  },
-
   // Admin Login (localhost:4200/login)
   {
     path: 'login',

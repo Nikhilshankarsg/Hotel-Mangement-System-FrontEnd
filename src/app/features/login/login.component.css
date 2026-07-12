@@ -1,17 +1,204 @@
-.login-wrapper {
-  min-height: calc(100vh - 70px);
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap');
+
+:host {
+  --gp-ink: #0f2a24;
+  --gp-gold: #c9a227;
+  --gp-gold-soft: #e6cd7d;
+  --gp-ivory: #f8f4ea;
+  --gp-danger: #dc3545;
+  
+  display: block;
+  font-family: 'Jost', sans-serif;
+}
+
+/* Background overlaying a luxury hotel image */
+.gp-login-wrapper {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  background: linear-gradient(180deg, rgba(15, 42, 36, 0.75), rgba(15, 42, 36, 0.95)), 
+              url('https://picsum.photos/seed/gp-admin/1600/900') center/cover no-repeat;
+  padding: 1.5rem;
 }
-.login-card {
-  width: 380px;
+
+/* The Login Card */
+.gp-login-card {
+  background: var(--gp-ivory);
+  width: 100%;
+  max-width: 420px;
+  border-radius: 8px;
+  border-top: 4px solid var(--gp-gold);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  padding: 3rem 2.5rem;
+}
+
+/* Typography matching landing page */
+.gp-eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gp-gold);
+  margin-bottom: 0.5rem;
+}
+
+.gp-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 2.2rem;
+  color: var(--gp-ink);
+  margin-bottom: 0.5rem;
+}
+
+.gp-subtitle {
+  color: #6b6558;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Decorative Rule */
+.gp-rule {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
 }
-.login-card h2 { margin: 0; }
-.subtitle { color: #6b7280; margin: 0 0 10px; font-size: 14px; }
-.error { color: #dc2626; font-size: 13px; }
-.hint { font-size: 12px; color: #9ca3af; margin-top: 10px; }
+.gp-rule::before,
+.gp-rule::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: linear-gradient(90deg, transparent, var(--gp-gold));
+}
+.gp-rule::after {
+  background: linear-gradient(90deg, var(--gp-gold), transparent);
+}
+.gp-rule span {
+  width: 5px;
+  height: 5px;
+  margin: 0 10px;
+  background: var(--gp-gold);
+  transform: rotate(45deg);
+}
+
+/* Form Inputs */
+.gp-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.gp-input-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gp-ink);
+  margin-bottom: 0.4rem;
+}
+
+.gp-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  color: var(--gp-ink);
+  background: #fff;
+  border: 1px solid rgba(15, 42, 36, 0.2);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.gp-input:focus {
+  border-color: var(--gp-gold);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+}
+
+/* Validation Styling */
+.gp-input.is-invalid {
+  border-color: var(--gp-danger);
+}
+
+.gp-input.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}
+
+.gp-error-text {
+  color: var(--gp-danger);
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+/* Auth Error Alert */
+.gp-alert-error {
+  display: flex;
+  align-items: center;
+  background: #fdf2f2;
+  border-left: 3px solid var(--gp-danger);
+  color: #842029;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.error-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+/* Primary Button */
+.gp-btn-gold {
+  background: var(--gp-gold);
+  color: var(--gp-ink);
+  border: none;
+  border-radius: 4px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.gp-btn-gold:hover:not(:disabled) {
+  background: var(--gp-gold-soft);
+  transform: translateY(-2px);
+}
+
+.gp-btn-gold:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Footer / Links */
+.gp-login-footer {
+  margin-top: 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(15, 42, 36, 0.1);
+  padding-top: 1.5rem;
+}
+
+.gp-hint {
+  font-size: 0.85rem;
+  color: #6b6558;
+  margin-bottom: 1rem;
+}
+
+.gp-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gp-ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.gp-link:hover {
+  border-color: var(--gp-ink);
+}
