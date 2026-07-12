@@ -18,6 +18,16 @@ export class RoomsComponent implements OnInit {
   roomNumberError = '';
   editingId: number | null = null;
 
+  // --- Pagination Variables (Stable Arrays) ---
+  currentPage = 1;
+  pageSize = 5; 
+  totalPages = 1;
+  startIndex = 0;
+  endIndex = 0;
+  
+  paginatedRooms: Room[] = [];
+  pageNumbers: number[] = [1];
+
   form: RoomRequest = {
     roomNumber: '',
     roomType: 'SINGLE',
@@ -34,11 +44,53 @@ export class RoomsComponent implements OnInit {
     this.loadRooms();
   }
 
+  // --- Core Pagination Logic ---
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.rooms.length / this.pageSize) || 1;
+    
+    // Prevent being stranded on an empty page
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages;
+    }
+
+    this.startIndex = (this.currentPage - 1) * this.pageSize;
+    this.endIndex = Math.min(this.startIndex + this.pageSize, this.rooms.length);
+    
+    // Assign stable arrays to avoid change detection bugs
+    this.paginatedRooms = this.rooms.slice(this.startIndex, this.endIndex);
+    this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+
+    this.cdr.detectChanges();
+  }
+
+  // --- Pagination Controls ---
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
+  }
+
+  goToPage(page: number): void {
+    if (this.currentPage !== page) {
+      this.currentPage = page;
+      this.updatePagination();
+    }
+  }
+
+  // --- API & Form Logic ---
   loadRooms(): void {
     this.roomService.getAll().subscribe({
       next: (data) => {
         this.rooms = [...data];
-        this.cdr.detectChanges();
+        this.updatePagination(); // Triggers the slice and calculates pages
       },
       error: (err) => {
         console.error(err);
@@ -112,7 +164,7 @@ export class RoomsComponent implements OnInit {
     request.subscribe({
       next: () => {
         this.showForm = false;
-        this.loadRooms();
+        this.loadRooms(); 
       },
       error: (err) => {
         console.error(err);
@@ -127,8 +179,7 @@ export class RoomsComponent implements OnInit {
     this.roomService.setMaintenance(room.id, maintenance).subscribe({
       next: () => {
         room.status = maintenance ? 'MAINTENANCE' : 'AVAILABLE';
-        this.rooms = [...this.rooms];
-        this.cdr.detectChanges();
+        this.updatePagination(); // Updates the UI instantly
       },
       error: (err) => {
         console.error(err);

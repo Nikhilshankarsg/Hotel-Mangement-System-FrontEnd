@@ -1,7 +1,7 @@
 <div class="page-container">
-  <!-- Header -->
+  <!-- Styled Page Header -->
   <header class="page-header">
-    <div>
+    <div class="header-content">
       <h1 class="page-title">Room Management</h1>
       <p class="page-subtitle">Manage your property's room inventory and status.</p>
     </div>
@@ -30,7 +30,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let room of rooms">
+          <!-- Iterating over paginatedRooms instead of all rooms -->
+          <tr *ngFor="let room of paginatedRooms">
             <td class="font-medium">{{ room.roomNumber }}</td>
             <td>
               <span class="type-tag">{{ room.roomType }}</span>
@@ -77,6 +78,33 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Pagination Footer -->
+    <div class="pagination-footer" *ngIf="rooms.length > 0">
+      <div class="pagination-info">
+        Showing <span class="font-medium">{{ startIndex + 1 }}</span> to <span class="font-medium">{{ endIndex }}</span> of <span class="font-medium">{{ rooms.length }}</span> results
+      </div>
+      
+      <div class="pagination-controls">
+        <button class="btn btn-secondary action-btn-small" [disabled]="currentPage <= 1" (click)="prevPage()">
+          Previous
+        </button>
+        
+        <div class="page-numbers">
+          <button 
+            *ngFor="let page of pageNumbers" 
+            class="page-btn" 
+            [class.active]="currentPage === page"
+            (click)="goToPage(page)">
+            {{ page }}
+          </button>
+        </div>
+
+        <button class="btn btn-secondary action-btn-small" [disabled]="currentPage >= totalPages" (click)="nextPage()">
+          Next
+        </button>
+      </div>
     </div>
   </div>
 
